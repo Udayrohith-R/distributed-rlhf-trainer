@@ -1,0 +1,41 @@
+model:
+  name_or_path: "meta-llama/Llama-3-8b-hf"
+
+ppo:
+  lr: 1.0e-5
+  critic_lr: 1.0e-5
+  clip_range: 0.2
+  clip_range_vf: 0.2
+  vf_coef: 0.5
+  ent_coef: 0.01
+  kl_coef: 0.1
+  target_kl: 0.05
+  gamma: 1.0
+  lam: 0.95
+  n_epochs: 1
+  n_steps: 1000
+  batch_size: 64
+  mini_batch_size: 8
+  grad_accumulation_steps: 4
+  normalize_advantage: true
+  normalize_reward: true
+  reward_clip: 5.0
+  sharding_strategy: "FULL_SHARD"
+  mixed_precision: true
+  backward_prefetch: true
+  cpu_offload: false
+  checkpoint_dir: "./checkpoints"
+  save_every_n_steps: 100
+  keep_last_n_checkpoints: 3
+
+rollout:
+  max_new_tokens: 512
+  temperature: 1.0
+  top_p: 0.9
+  do_sample: true
+  micro_batch_size: 8
+  max_queue_size: 256
+  prefetch_batches: 2
+  n_rollout_workers: 4
+  n_gpus_per_worker: 0.5
+  generation_timeout_s: 120.0
